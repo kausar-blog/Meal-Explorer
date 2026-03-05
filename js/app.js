@@ -82,8 +82,9 @@ async function getRandomMeal() {
     getMealById(data.meals[0].idMeal);
   } catch (error) {
     console.log("Failed to fetch random meal:", error);
+  } finally {
+    hideLoading();
   }
-  hideLoading();
 }
 
 // OPEN MEAL MODAL
@@ -107,10 +108,10 @@ async function getMealById(idMeal) {
 function openMealModal(meal) {
   let ingredientsList = "";
 
-  for (let i = 1; i <= 20; i++) {
-    if (meal[`strIngredient${i}`]) {
-      ingredientsList += `<li>${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}</li>`;
-    }
+  let i = 1;
+  while (meal[`strIngredient${i}`]) {
+    ingredientsList += `<li>${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}</li>`;
+    i++;
   }
 
   modalContent.innerHTML = `
