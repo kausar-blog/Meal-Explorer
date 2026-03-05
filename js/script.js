@@ -11,17 +11,8 @@ const notFound = document.getElementById("not-found");
 
 const randomMealBtn = document.getElementById("random-meal-btn");
 
-const modal = document.getElementById("my_modal_1");
+const modal = document.getElementById("my_modal_2");
 const modalContent = document.getElementById("modal-content");
-
-const modalMealTitle = document.getElementById("modal-meal-title");
-const modalMealImage = document.getElementById("modal-meal-image");
-const modalMealCategory = document.getElementById("modal-meal-category");
-const modalMealArea = document.getElementById("modal-meal-area");
-const modalMealInstructions = document.getElementById(
-  "modal-meal-instructions",
-);
-const modalMealVideo = document.getElementById("modal-meal-video");
 
 // =============================
 // EVENT LISTENERS
