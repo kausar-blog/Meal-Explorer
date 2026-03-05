@@ -1,12 +1,16 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meal-Explorer</title>
+    <title>Meal Explorer</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="./assets/logo.png" type="image/x-icon" />
+    <link
+      rel="shortcut icon"
+      href="./assets/icons/favicon.png"
+      type="image/x-icon"
+    />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -23,20 +27,148 @@
       integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
       crossorigin="anonymous"
     />
-
-    <!-- DaisyUI CSS -->
+    <!-- Tailwind + DaisyUI -->
     <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css"
+      href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css"
       rel="stylesheet"
     />
-
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body>
-    <h1 class="text-4xl bg-green-500">Meal-Explorer</h1>
+
+  <body class="bg-gray-100 min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-md">
+      <div class="container mx-auto">
+        <div class="flex-1">
+          <a class="text-2xl font-bold text-primary">Meal Explorer</a>
+        </div>
+
+        <div class="flex-none">
+          <button id="random-meal-btn" class="btn btn-primary">
+            Random Meal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="py-12 bg-white shadow-sm">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl font-bold mb-4"> Discover Delicious Meals </h1>
+
+        <p class="text-gray-500 mb-8">
+          Search for your favorite meals and explore detailed recipes
+        </p>
+
+        <!-- Search Box -->
+        <div class="flex justify-center gap-3">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search meals..."
+            class="input input-bordered w-full max-w-md"
+          />
+
+          <button id="search-btn" class="btn btn-primary"> Search </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meals Section -->
+    <section class="py-12">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center"> Meals </h2>
+
+        <!-- Loading -->
+        <div id="loading-spinner" class="text-center hidden">
+          <span class="loading loading-spinner loading-lg"></span>
+        </div>
+
+        <!-- Not Found -->
+        <div id="not-found" class="text-center hidden">
+          <p class="text-red-500 text-xl"> No meals found </p>
+        </div>
+
+        <!-- Meals Container -->
+        <div
+          id="meals-container"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <!-- Meal Card Example -->
+          <div class="card bg-base-100 shadow-md">
+            <figure>
+              <img src="https://via.placeholder.com/400" alt="Meal" />
+            </figure>
+
+            <div class="card-body">
+              <h2 class="card-title"> Meal Name </h2>
+
+              <p class="text-sm text-gray-500"> Category </p>
+
+              <div class="card-actions justify-end">
+                <button class="btn btn-sm btn-primary"> View Details </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+    <dialog id="meal-modal" class="modal">
+      <div class="modal-box max-w-2xl">
+        <h3 id="modal-meal-title" class="font-bold text-2xl mb-4">
+          Meal Name
+        </h3>
+
+        <img
+          id="modal-meal-image"
+          class="rounded-lg mb-4"
+          src="https://via.placeholder.com/500"
+          alt=""
+        />
+
+        <p id="modal-meal-category" class="text-sm text-gray-500 mb-2">
+          Category
+        </p>
+
+        <p id="modal-meal-area" class="text-sm text-gray-500 mb-4"> Area </p>
+
+        <h4 class="font-semibold mb-2"> Instructions </h4>
+
+        <p id="modal-meal-instructions" class="text-sm mb-4">
+          Meal instructions will appear here.
+        </p>
+
+        <a
+          id="modal-meal-video"
+          href="#"
+          target="_blank"
+          class="btn btn-outline btn-primary"
+        >
+          Watch on YouTube
+        </a>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Footer -->
+    <footer class="footer footer-center p-6 bg-base-200 text-base-content">
+      <aside>
+        <p> © 2026 Meal Explorer | Built with HTML, Tailwind & DaisyUI </p>
+      </aside>
+    </footer>
+
+    <!-- js links -->
+
+    <script src="./js/script.js"></script>
   </body>
 </html>
