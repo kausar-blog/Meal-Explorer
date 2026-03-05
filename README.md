@@ -8,13 +8,15 @@ This project demonstrates how to work with **JavaScript APIs, Fetch requests, an
 
 ## 🚀 Live Demo
 
-Coming Soon...
+[Live Here](https://kausar-blog.github.io/Meal-Explorer/)
 
 ---
 
 ## 📸 Project Preview
 
-_Add screenshots of your project here_
+![Home Page](assets/images/home.png)
+![Search Result](assets/images/search.png)
+![Meal Modal](assets/images/modal.png)
 
 ---
 
