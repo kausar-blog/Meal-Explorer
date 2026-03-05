@@ -31,9 +31,9 @@ async function searchMeals(mealName) {
   } catch (error) {
     console.log("Failed to fetch meals:", error);
     showNotFound();
+  } finally {
+    hideLoading();
   }
-
-  hideLoading();
 }
 
 // DISPLAY MEALS
@@ -96,10 +96,9 @@ async function getMealById(idMeal) {
     const res = await fetch(url);
     const data = await res.json();
     // console.log(data.meals);
+    // console.log(data.meals[0]);
 
-    // openMealModalDetails(data.meals);
     openMealModal(data.meals[0]);
-    // openMealModal(data.meals);
   } catch (error) {
     console.log("Failed to fetch meal by id:", error);
   }
@@ -109,7 +108,7 @@ function openMealModal(meal) {
   let ingredientsList = "";
 
   let i = 1;
-  while (meal[`strIngredient${i}`]) {
+  while (meal[`strIngredient${i}`]?.trim()) {
     ingredientsList += `<li>${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}</li>`;
     i++;
   }
@@ -139,7 +138,6 @@ function openMealModal(meal) {
     }
   `;
 
-  // Show modal
   modal.showModal();
 }
 
