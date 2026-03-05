@@ -110,7 +110,12 @@
               <p class="text-sm text-gray-500"> Category </p>
 
               <div class="card-actions justify-end">
-                <button class="btn btn-sm btn-primary"> View Details </button>
+                <button
+                  class="btn btn-sm btn-primary"
+                  onclick="openMealModal()"
+                >
+                  View Details
+                </button>
               </div>
             </div>
           </div>
@@ -119,40 +124,41 @@
     </section>
 
     <!-- Modal -->
-    <dialog id="meal-modal" class="modal">
+    <dialog id="my_modal_1" class="modal">
       <div class="modal-box max-w-2xl">
-        <h3 id="modal-meal-title" class="font-bold text-2xl mb-4">
-          Meal Name
-        </h3>
+        <div id="modal-content">
+          <h3 id="modal-meal-title" class="font-bold text-2xl mb-4">
+            Meal Name
+          </h3>
 
-        <img
-          id="modal-meal-image"
-          class="rounded-lg mb-4"
-          src="https://via.placeholder.com/500"
-          alt=""
-        />
+          <img
+            id="modal-meal-image"
+            class="rounded-lg mb-4"
+            src="https://via.placeholder.com/500"
+            alt=""
+          />
 
-        <p id="modal-meal-category" class="text-sm text-gray-500 mb-2">
-          Category
-        </p>
+          <p id="modal-meal-category" class="text-sm text-gray-500 mb-2">
+            Category
+          </p>
 
-        <p id="modal-meal-area" class="text-sm text-gray-500 mb-4"> Area </p>
+          <p id="modal-meal-area" class="text-sm text-gray-500 mb-4"> Area </p>
 
-        <h4 class="font-semibold mb-2"> Instructions </h4>
+          <h4 class="font-semibold mb-2"> Instructions </h4>
 
-        <p id="modal-meal-instructions" class="text-sm mb-4">
-          Meal instructions will appear here.
-        </p>
+          <p id="modal-meal-instructions" class="text-sm mb-4">
+            Meal instructions will appear here.
+          </p>
 
-        <a
-          id="modal-meal-video"
-          href="#"
-          target="_blank"
-          class="btn btn-outline btn-primary"
-        >
-          Watch on YouTube
-        </a>
-
+          <a
+            id="modal-meal-video"
+            href="#"
+            target="_blank"
+            class="btn btn-outline btn-primary"
+          >
+            Watch on YouTube
+          </a>
+        </div>
         <div class="modal-action">
           <form method="dialog">
             <button class="btn">Close</button>

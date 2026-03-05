@@ -11,7 +11,8 @@ const notFound = document.getElementById("not-found");
 
 const randomMealBtn = document.getElementById("random-meal-btn");
 
-const mealModal = document.getElementById("meal-modal");
+const modal = document.getElementById("my_modal_1");
+const modalContent = document.getElementById("modal-content");
 
 const modalMealTitle = document.getElementById("modal-meal-title");
 const modalMealImage = document.getElementById("modal-meal-image");
@@ -42,6 +43,7 @@ randomMealBtn.addEventListener("click", function () {
 
 async function searchMeals(mealName) {
   // show loading spinner
+  showLoading();
   // hide not found
   // API URL
   const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`;
@@ -55,7 +57,9 @@ async function searchMeals(mealName) {
     displayMeals(data.meals);
   } catch (error) {
     // if no meals → show not found
-    console.log("Failed to fetch mealName:", error);
+    showNotFound();
+
+    // console.log("Failed to fetch mealName:", error);
   }
 }
 
@@ -69,8 +73,9 @@ function displayMeals(meals) {
   mealsContainer.innerHTML = "";
   // loop meals
   meals.forEach((meal) => {
-    console.log(meal);
+    // console.log(meal);
     createMealCard(meal);
+
     // create card
     const card = document.createElement("div");
     card.className = "card bg-base-100 shadow-md";
@@ -85,14 +90,22 @@ function displayMeals(meals) {
 
         <p class="text-sm text-gray-500">${meal.strMeal}</p>
 
-      <div class="card-actions justify-end">
-        <button class="btn btn-sm btn-primary"> View Details </button>
+        <div class="card-actions justify-end">
+          <button class="btn btn-sm btn-primary" id="open-meal-modal-${meal.idMeal}"> View Details </button>
+        </div>
       </div>
     `;
+
+    const button = card.querySelector(`#open-meal-modal-${meal.idMeal}`);
+    button.addEventListener("click", () => {
+      openMealModal(meal.idMeal);
+    });
     // add view details button
     // append card
     mealsContainer.append(card);
   });
+
+  hideLoading();
 }
 
 // =============================
@@ -110,9 +123,17 @@ function createMealCard(meal) {
 // =============================
 
 async function getRandomMeal() {
+  // showLoading();
   // show loading
   // fetch random meal
+  const url = "https://www.themealdb.com/api/json/v1/1/random.php";
   // convert json
+  const res = await fetch(url);
+  const data = await res.json();
+
+  // console.log(data.meals);
+  // openMealModal(data);
+
   // display in modal
 }
 
@@ -120,7 +141,20 @@ async function getRandomMeal() {
 // OPEN MEAL MODAL
 // =============================
 
-function openMealModal(meal) {
+async function openMealModal(meal) {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${meal}`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    // console.log(data.meals);
+
+    openMealModalDetails(data.meals);
+  } catch (error) {
+    console.log("failed to fetch api: ", error);
+  }
+  // console.log(meal);
+  // mealModal;
   // set modal title
   // set modal image
   // set category
@@ -129,6 +163,71 @@ function openMealModal(meal) {
   // set youtube link
   // open modal
 }
+function openMealModalDetails(meals) {
+  meals.forEach((meal) => {
+    console.log(meal);
+
+    let ingredientsList = "";
+    for (let i = 1; i <= 20; i++) {
+      if (meal[`strIngredient${i}`]) {
+        ingredientsList += `<li>${meal[`strMeasure${i}`]} ${meal[`strIngredient${i}`]}</li>`;
+      }
+    }
+
+    // Set modal content
+    modalContent.innerHTML = `
+    <div id="modal-content" class="p-4">
+      <!-- Meal Title -->
+      <h3 id="modal-meal-title" class="font-bold text-2xl mb-4 text-center text-primary">
+        ${meal.strMeal}
+      </h3>
+
+      <!-- Meal Image -->
+      <img
+        id="modal-meal-image"
+        class="rounded-lg mb-6 mx-auto shadow-md"
+        src="${meal.strMealThumb}"
+        alt="${meal.strMeal}"
+      />
+
+      <!-- Category & Area -->
+      <div class="flex justify-center gap-6 mb-4 text-gray-600 font-medium">
+        <span>Category: ${meal.strCategory}</span>
+        <span>Area: ${meal.strArea}</span>
+      </div>
+
+      <!-- Ingredients -->
+      <h4 class="font-semibold mb-2 text-lg">Ingredients</h4>
+      <ul class="list-disc list-inside mb-4 text-gray-700">
+        ${ingredientsList}
+      </ul>
+
+      <!-- Instructions -->
+      <h4 class="font-semibold mb-2 text-lg">Instructions</h4>
+      <p id="modal-meal-instructions" class="text-gray-700 mb-4 whitespace-pre-line">
+        ${meal.strInstructions}
+      </p>
+
+      <!-- YouTube Link -->
+      ${
+        meal.strYoutube
+          ? `<a
+        id="modal-meal-video"
+        href="${meal.strYoutube}"
+        target="_blank"
+        class="btn btn-outline btn-primary w-full"
+      >
+        Watch on YouTube
+      </a>`
+          : ""
+      }
+    </div>
+  `;
+
+    // Show modal
+    modal.showModal();
+  });
+}
 
 // =============================
 // SHOW LOADING
@@ -136,6 +235,7 @@ function openMealModal(meal) {
 
 function showLoading() {
   // remove hidden class
+  loadingSpinner.classList.remove("hidden");
 }
 
 // =============================
@@ -144,6 +244,7 @@ function showLoading() {
 
 function hideLoading() {
   // add hidden class
+  loadingSpinner.classList.add("hidden");
 }
 
 // =============================
@@ -152,6 +253,7 @@ function hideLoading() {
 
 function showNotFound() {
   // remove hidden class
+  notFound.classList.remove("hidden");
 }
 
 // =============================
@@ -160,4 +262,5 @@ function showNotFound() {
 
 function hideNotFound() {
   // add hidden class
+  notFound.classList.add("hidden");
 }
